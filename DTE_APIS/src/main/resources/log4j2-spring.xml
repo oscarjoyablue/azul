@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+		<Property name="LOG_PATH">/app/properties/DTEAPI/Logs/</Property>
+        <!-- <Property name="LOG_PATH">C:/Logs/DTEAPI/</Property>-->
+        <Property name="FILE_NAME">DTELogs</Property>
+        <Property name="FILE_EXTENSION">log</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %highlight{%5p} [%t] %c{1.} - %m%n"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="${LOG_PATH}${FILE_NAME}-${date:yyyy-MM-dd}.${FILE_EXTENSION}"
+                     filePattern="${LOG_PATH}${FILE_NAME}-%d{yyyy-MM-dd}-%i.${FILE_EXTENSION}">
+            <PatternLayout pattern="%d %p %c{1.} [%t] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="50MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFile" />
+        </Root>
+    </Loggers>
+</Configuration>
